@@ -41,6 +41,7 @@ Page({
   _pausedRemaining: 0,
   _tickTimer: null,
   _breathTimer: null,
+  _breathDelayTimer: null,
   _breathPhase: 0,
 
   onLoad() {},
@@ -120,6 +121,7 @@ Page({
   _clearAllTimers() {
     this._clearTickLoop();
     if (this._breathTimer) { clearTimeout(this._breathTimer); this._breathTimer = null; }
+    if (this._breathDelayTimer) { clearTimeout(this._breathDelayTimer); this._breathDelayTimer = null; }
   },
 
   _updateDisplay(total) {
@@ -174,7 +176,9 @@ Page({
     this._flashAudioIndicator();
     // 呼吸引导等颂钵播完再开始（颂钵 26 秒 + 1 秒缓冲）
     if (this.data.breathing) {
-      setTimeout(() => {
+      if (this._breathDelayTimer) clearTimeout(this._breathDelayTimer);
+      this._breathDelayTimer = setTimeout(() => {
+        this._breathDelayTimer = null;
         if (this.data.running && !this.data.paused) this._startBreathCycle();
       }, 27000);
     }
@@ -221,8 +225,6 @@ Page({
     }
 
     audio.stopAll();
-    audio.playBowlFadeIn();
-    this._flashAudioIndicator();
 
     // 超过 6 秒才记录
     if (actualMin > 0.1) {
