@@ -1,0 +1,87 @@
+<!-- pages/timer/timer.wxml -->
+<view class="timer-page">
+  <!-- 模式切换 -->
+  <view class="mode-tabs">
+    <view class="mode-tab {{mode === 'countdown' ? 'active' : ''}}" bindtap="onModeTap" data-mode="countdown">定时</view>
+    <view class="mode-tab {{mode === 'stopwatch' ? 'active' : ''}}" bindtap="onModeTap" data-mode="stopwatch">不定时</view>
+  </view>
+
+  <!-- 圆环 + 数字 -->
+  <view class="ring-container">
+    <view class="ring-svg">
+      <svg viewBox="0 0 260 260" width="520rpx" height="520rpx">
+        <circle cx="130" cy="130" r="122" fill="none" stroke="#2d2822" stroke-width="3"/>
+        <circle cx="130" cy="130" r="122" fill="none" stroke="#c8a45c" stroke-width="3"
+          stroke-linecap="round" stroke-dasharray="{{766.5}}" stroke-dashoffset="{{ringOffset}}"
+          transform="rotate(-90 130 130)"/>
+      </svg>
+    </view>
+    <view class="timer-display">
+      <view class="timer-time {{totalSeconds > 3599 && !running ? 'small' : ''}}">
+        {{displayTime}}
+      </view>
+      <view class="timer-label {{breathing ? 'breath-phase' : ''}}">
+        {{breathing ? breathLabel : (mode === 'countdown' ? '分钟' : '已过')}}
+      </view>
+    </view>
+  </view>
+
+  <!-- 音频指示 -->
+  <view class="audio-indicator {{audioPlaying ? 'playing' : ''}}">
+    <view class="audio-dot"></view>
+    <text>颂钵</text>
+  </view>
+
+  <!-- 预设时长（仅定时模式） -->
+  <view class="preset-section" wx:if="{{mode === 'countdown'}}">
+    <view class="preset-row">
+      <view class="preset-btn {{!customSelected && duration === 60 ? 'selected' : ''}}" bindtap="onDurationTap" data-min="1">1 分</view>
+      <view class="preset-btn {{!customSelected && duration === 180 ? 'selected' : ''}}" bindtap="onDurationTap" data-min="3">3 分</view>
+      <view class="preset-btn {{!customSelected && duration === 300 ? 'selected' : ''}}" bindtap="onDurationTap" data-min="5">5 分</view>
+      <view class="preset-btn {{!customSelected && duration === 600 ? 'selected' : ''}}" bindtap="onDurationTap" data-min="10">10 分</view>
+    </view>
+    <view class="preset-row">
+      <view class="preset-btn {{!customSelected && duration === 900 ? 'selected' : ''}}" bindtap="onDurationTap" data-min="15">15 分</view>
+      <view class="preset-btn {{!customSelected && duration === 1200 ? 'selected' : ''}}" bindtap="onDurationTap" data-min="20">20 分</view>
+      <view class="preset-btn {{!customSelected && duration === 1800 ? 'selected' : ''}}" bindtap="onDurationTap" data-min="30">30 分</view>
+      <view class="preset-btn {{customSelected ? 'selected' : ''}}" bindtap="onCustomTap">自定义</view>
+    </view>
+    <view class="preset-custom" wx:if="{{customSelected}}">
+      <text>自定义</text>
+      <input type="number" value="{{customSeconds}}" bindinput="onCustomInput" min="1" max="7200" />
+      <text class="unit">秒</text>
+    </view>
+  </view>
+
+  <!-- 呼吸引导 -->
+  <view class="breathing-section">
+    <view class="breathing-toggle" bindtap="onBreathToggle">
+      <view class="toggle-switch {{breathing ? 'on' : ''}}"></view>
+      <text class="label">呼吸引导</text>
+    </view>
+    <view class="breathing-modes {{breathing ? 'visible' : ''}}">
+      <view class="breath-mode-btn {{breathMode === 'box' ? 'selected' : ''}}" bindtap="onBreathModeTap" data-mode="box">箱式 4-4-4-4</view>
+      <view class="breath-mode-btn {{breathMode === '478' ? 'selected' : ''}}" bindtap="onBreathModeTap" data-mode="478">4-7-8 助眠</view>
+    </view>
+  </view>
+
+  <!-- 控制按钮 -->
+  <view class="controls">
+    <block wx:if="{{running && !paused}}">
+      <view class="btn btn-secondary" bindtap="onPause"><text class="control-icon pause">⏸</text></view>
+      <view class="btn btn-primary stop" bindtap="onStop"><text class="control-icon stop">■</text></view>
+    </block>
+    <block wx:elif="{{running && paused}}">
+      <view class="btn btn-secondary" bindtap="onStop"><text class="control-icon stop">■</text></view>
+      <view class="btn btn-primary" bindtap="onStart"><text class="control-icon play">▶</text></view>
+    </block>
+    <block wx:else>
+      <view class="btn btn-primary" bindtap="onStart"><text class="control-icon play">▶</text></view>
+    </block>
+  </view>
+
+  <!-- 历史记录入口 -->
+  <view class="history-entry" bindtap="onGoHistory">
+    <text>冥想记录 →</text>
+  </view>
+</view>

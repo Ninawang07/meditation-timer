@@ -1,0 +1,99 @@
+/* pages/history/history.wxss */
+.history-page {
+  padding: 32rpx 48rpx;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.stats-row {
+  display: flex;
+  gap: 24rpx;
+  margin-bottom: 56rpx;
+}
+.stat-card {
+  flex: 1;
+  background: #24201b;
+  border-radius: 32rpx;
+  padding: 32rpx 16rpx;
+  text-align: center;
+}
+.stat-value {
+  font-family: 'PingFang SC', serif;
+  font-size: 56rpx;
+  font-weight: 500;
+  color: #c8a45c;
+  line-height: 1;
+  margin-bottom: 8rpx;
+}
+.stat-label {
+  font-size: 22rpx;
+  color: #5e5850;
+  letter-spacing: 0.04em;
+}
+
+.session-list {
+  flex: 1;
+}
+.session-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28rpx 0;
+  border-bottom: 2rpx solid rgba(154, 146, 136, 0.08);
+}
+.session-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+}
+.session-date {
+  font-size: 26rpx;
+  font-weight: 500;
+  color: #9a9288;
+}
+.session-time {
+  font-size: 22rpx;
+  color: #5e5850;
+}
+.session-right {
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+}
+.session-duration {
+  font-family: 'PingFang SC', serif;
+  font-size: 32rpx;
+  font-weight: 500;
+  color: #e5ded5;
+}
+.session-mode {
+  font-size: 22rpx;
+  color: #5e5850;
+  background: #24201b;
+  padding: 6rpx 20rpx;
+  border-radius: 20rpx;
+}
+
+.empty-state {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16rpx;
+}
+.empty-icon {
+  font-size: 80rpx;
+  opacity: 0.2;
+  color: #5e5850;
+}
+.empty-text {
+  font-size: 28rpx;
+  color: #5e5850;
+}
+.empty-hint {
+  font-size: 24rpx;
+  color: #5e5850;
+  opacity: 0.6;
+}

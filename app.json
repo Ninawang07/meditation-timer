@@ -1,0 +1,14 @@
+{
+  "pages": [
+    "pages/timer/timer",
+    "pages/history/history"
+  ],
+  "window": {
+    "navigationBarTitleText": "冥想",
+    "navigationBarBackgroundColor": "#1b1814",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#1b1814",
+    "backgroundTextStyle": "light"
+  },
+  "sitemapLocation": "sitemap.json"
+}

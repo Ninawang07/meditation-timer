@@ -1,0 +1,39 @@
+<!-- pages/history/history.wxml -->
+<view class="history-page">
+  <!-- 统计卡片 -->
+  <view class="stats-row">
+    <view class="stat-card">
+      <view class="stat-value">{{stats.totalCount}}</view>
+      <view class="stat-label">次冥想</view>
+    </view>
+    <view class="stat-card">
+      <view class="stat-value">{{stats.totalMinutes}}</view>
+      <view class="stat-label">分钟</view>
+    </view>
+    <view class="stat-card">
+      <view class="stat-value">{{stats.streak}}</view>
+      <view class="stat-label">天连续</view>
+    </view>
+  </view>
+
+  <!-- 会话列表 -->
+  <scroll-view class="session-list" scroll-y wx:if="{{sessions.length > 0}}">
+    <view class="session-item" wx:for="{{sessions}}" wx:key="index">
+      <view class="session-left">
+        <view class="session-date">{{item.date}}</view>
+        <view class="session-time">{{item.time}}</view>
+      </view>
+      <view class="session-right">
+        <view class="session-duration">{{item.duration}} 分钟</view>
+        <view class="session-mode">{{item.mode}}</view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:else>
+    <view class="empty-icon">◯</view>
+    <view class="empty-text">暂无冥想记录</view>
+    <view class="empty-hint">开始你的第一次冥想吧</view>
+  </view>
+</view>
