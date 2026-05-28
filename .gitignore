@@ -1,3 +1,12 @@
 project.private.config.json
 .DS_Store
 Thumbs.db
+
+# APK build artifacts
+冥想apk/android/.gradle/
+冥想apk/android/app/build/
+冥想apk/android/build/
+冥想apk/node_modules/
+冥想apk/*.apk
+冥想apk/build.log
+冥想apk/.npm-cache/
